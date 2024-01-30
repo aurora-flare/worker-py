@@ -1,4 +1,5 @@
 import asyncio
+import logging.config
 from typing import Iterable
 from typing import TypedDict
 
@@ -9,6 +10,8 @@ from src.config import Settings
 
 client = mqtt.Client()
 cfg = Settings()
+logging.config.fileConfig('../logging.ini')
+logger = logging.getLogger(__name__)
 
 
 class Message(TypedDict):
@@ -31,8 +34,16 @@ async def consume_messages():
 
 
 if __name__ == '__main__':
-    client.username_pw_set(cfg.MQTT_LOGIN, cfg.MQTT_PASSWORD)
-    client.on_connect = lambda *_: print('Connected')
+    client.username_pw_set(cfg.MQTT_LOGIN, cfg.MQTT_PASS)
+    client.on_connect = lambda *_: logger.info(
+        f'Client {cfg.CLIENT_ID} connected {cfg.MQTT_HOST}'
+    )
+    client.ondisconnect = lambda *_: logger.info(
+        f'Client {cfg.CLIENT_ID} disconnect {cfg.MQTT_HOST}'
+    )
+    client.on_connect_fail = lambda *_: logger.info(
+        f'Client {cfg.CLIENT_ID} fail connect {cfg.MQTT_HOST}'
+    )
 
     client.connect(cfg.MQTT_HOST, cfg.MQTT_PORT, 60)
     client.loop_start()
