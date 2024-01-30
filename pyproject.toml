@@ -7,6 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+redis = "^5.0.1"
+paho-mqtt = "^1.6.1"
+pydantic-settings = "^2.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
