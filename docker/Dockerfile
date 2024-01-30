@@ -12,3 +12,4 @@ RUN mkdir -p /code/logs && \
     poetry install --no-dev --no-interaction --no-ansi
 
 WORKDIR /code/src
+ENTRYPOINT ["python", "worker.py"]
