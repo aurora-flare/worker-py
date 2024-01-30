@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging.config
 from typing import Iterable
 from typing import TypedDict
@@ -24,13 +25,11 @@ async def process_message(message: Message):
 
 
 async def consume_messages():
-    redis = aredis.Redis(
-        host=cfg.REDIS_HOST, port=cfg.REDIS_PORT, decode_responses=True
-    )
+    redis = aredis.Redis(host=cfg.REDIS_HOST, port=cfg.REDIS_PORT)
     while True:
         queue, message = await redis.blpop(cfg.REDIS_QUEUE)
         if message:
-            await process_message(message)
+            await process_message(json.loads(message))
 
 
 if __name__ == '__main__':
