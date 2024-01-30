@@ -6,8 +6,7 @@ from typing import TypedDict
 
 import paho.mqtt.client as mqtt
 import redis.asyncio as aredis
-
-from src.config import Settings
+from config import Settings
 
 client = mqtt.Client()
 cfg = Settings()
