@@ -2,7 +2,7 @@
 
 DIR="$(dirname "$(readlink -f "$0")")"
 VERSION=$(cat ${DIR}/version)
-CONTAINER_NAME=${GITHUB_REPOSITORY}-py
+CONTAINER_NAME="${GITHUB_REPOSITORY}-py"
 
 build() {
   echo "Start build ${VERSION}"
