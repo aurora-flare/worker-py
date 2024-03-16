@@ -6,8 +6,7 @@ COPY ./pyproject.toml ./poetry.lock* ./logging.ini /code/
 COPY ./src/  /code/src/
 COPY ./docker/  /code/docker/
 
-RUN mkdir -p /code/logs && \
-    pip install poetry && \
+RUN pip install poetry && \
     poetry config virtualenvs.create false && \
     poetry install --no-dev --no-interaction --no-ansi
 
