@@ -36,8 +36,8 @@ def main(mqtt_client: mqtt.Client):
 
 
 if __name__ == '__main__':
-    client = mqtt.Client()
     client_id = f'{cfg.CLIENT_ID_PREFIX}-{str(uuid.uuid4())[:8]}'
+    client = mqtt.Client(client_id)
 
     client.username_pw_set(cfg.MQTT_LOGIN, cfg.MQTT_PASS)
     client.on_connect = lambda *_: logger.info(f'{client_id} connected success')
