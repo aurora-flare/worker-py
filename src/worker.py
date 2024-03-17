@@ -21,6 +21,7 @@ class Message(TypedDict):
 def send(message: Message, mqtt_client: mqtt.Client) -> None:
     """Send message to specific mqtt topic, through mqtt client"""
 
+    logger.info(f'Sending message into: {message["topic"]}')
     mqtt_client.publish(message['topic'], bytes(message['data']))
 
 
