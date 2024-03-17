@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     MQTT_LOGIN: str
     MQTT_PASS: str
 
-    CLIENT_ID: str
+    CLIENT_ID_PREFIX: str
 
     class Config:
         env_file = '../.env'

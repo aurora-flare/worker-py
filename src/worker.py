@@ -1,5 +1,6 @@
 import json
 import logging.config
+import uuid
 from typing import Iterable
 from typing import TypedDict
 
@@ -35,11 +36,12 @@ def main(mqtt_client: mqtt.Client):
 
 if __name__ == '__main__':
     client = mqtt.Client()
+    client_id = f'{cfg.CLIENT_ID_PREFIX}-{str(uuid.uuid4())[:8]}'
 
     client.username_pw_set(cfg.MQTT_LOGIN, cfg.MQTT_PASS)
-    client.on_connect = lambda *_: logger.info(f'{cfg.CLIENT_ID} connected success')
-    client.ondisconnect = lambda *_: logger.info(f'{cfg.CLIENT_ID} disconnect')
-    client.on_connect_fail = lambda *_: logger.info(f'{cfg.CLIENT_ID} fail connect')
+    client.on_connect = lambda *_: logger.info(f'{client_id} connected success')
+    client.ondisconnect = lambda *_: logger.info(f'{client_id} disconnect')
+    client.on_connect_fail = lambda *_: logger.info(f'{client_id} fail connect')
 
     client.connect(cfg.MQTT_HOST, cfg.MQTT_PORT)
     client.loop_start()
